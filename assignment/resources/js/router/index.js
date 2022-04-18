@@ -11,9 +11,15 @@ const router =  new Router({
     routes: [
 
         {
-            path: '/home',
-            name: 'home',
-            component: () => import('../views/home/index.vue'),
+            path: '/',
+            name: 'auditoriums',
+            component: () => import('../views/auditoriums/index.vue'),
+        },
+        {
+            path: '/booking',
+            name: 'booking',
+            props: true,
+            component: () => import('../views/booking/index.vue'),
         },
     ]
 });

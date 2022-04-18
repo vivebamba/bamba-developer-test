@@ -5,17 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Seat extends Model
+class AuditoriumSeatSchedule extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'status',
-    ];
+    protected $table = "auditorium_seat_schedule";
 
-    public function auditorium()
-    {
-        return $this->belongsTo(Auditorium::class);
-    }
+    protected $fillable = [
+        'auditorium_id',
+        'seat_id',
+        'schedule_id',
+    ];
 }

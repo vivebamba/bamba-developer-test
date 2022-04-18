@@ -17,7 +17,6 @@ class CreateAuditoriumsTable extends Migration
             $table->id();
             $table->string('name', 2);
             $table->unsignedBigInteger('total_seats');
-            $table->json('schedules_ids');
             $table->char('status', 1)->default('1');
             $table->timestamps();
         });

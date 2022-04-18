@@ -1,4 +1,5 @@
 import 'vuetify/dist/vuetify.min.css'
+import '@mdi/font/css/materialdesignicons.css'
 
 import Vue from 'vue'
 import Vuetify from 'vuetify'
@@ -15,5 +16,8 @@ export default new Vuetify({
                 error: '#b71c1c',
             },
         },
+    },
+    icons: {
+        iconfont: 'mdi', // default - only for display purposes
     },
 })

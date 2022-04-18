@@ -21,7 +21,11 @@
 </head>
 <body>
     <div id="app">
-    <home />
+    <v-app>
+        <v-container>
+            <router-view></router-view>
+        </v-container>
+    </v-app>
     </div>
 </body>
 </html>

@@ -12,8 +12,8 @@ class Booking extends Model
     protected $fillable = [
         'booker_id',
         'auditorium_id',
-        'seats_ids',
-        'schedules_ids',
+        'seat_id',
+        'schedule_id',
         'status',
     ];
 }

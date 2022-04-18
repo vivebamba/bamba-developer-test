@@ -17,8 +17,8 @@ class CreateBookingsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('booker_id');
             $table->unsignedBigInteger('auditorium_id');
-            $table->json('seats_ids');
-            $table->json('schedules_ids');
+            $table->unsignedBigInteger('seat_id');
+            $table->unsignedBigInteger('schedule_id');
             $table->char('status', 1)->default('1');
             $table->timestamps();
         });

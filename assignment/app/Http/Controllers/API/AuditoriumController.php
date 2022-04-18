@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Auditorium;
+use App\Models\Schedule;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AuditoriumController extends Controller
@@ -15,7 +17,8 @@ class AuditoriumController extends Controller
      */
     public function index()
     {
-        //
+        $auditoriums= Auditorium::with('schedules', 'seats')->get();
+        return response()->json(compact('auditoriums'));
     }
 
     /**
@@ -45,9 +48,10 @@ class AuditoriumController extends Controller
      * @param  \App\Models\Auditorium  $auditorium
      * @return \Illuminate\Http\Response
      */
-    public function show(Auditorium $auditorium)
+    public function show($id)
     {
-        //
+        $auditorium= Auditorium::with('seats')->find($id);
+        return response()->json(compact('auditorium'));
     }
 
     /**

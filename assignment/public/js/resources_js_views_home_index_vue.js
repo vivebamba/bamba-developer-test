@@ -18,6 +18,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   computed: {}
 });
@@ -108,16 +113,25 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    [
+      _c(
+        "v-app",
+        [
+          _c("h5", [_vm._v("HOME")]),
+          _vm._v(" "),
+          _c("v-btn", { attrs: { color: "primary", elevation: "2" } }, [
+            _vm._v("test!"),
+          ]),
+        ],
+        1
+      ),
+    ],
+    1
+  )
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("h5", [_vm._v("HOME")])])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
