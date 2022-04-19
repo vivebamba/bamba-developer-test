@@ -21,6 +21,12 @@ const router =  new Router({
             props: true,
             component: () => import('../views/booking/index.vue'),
         },
+        {
+            path: '/booking-detail',
+            name: 'booking-detail',
+            props: true,
+            component: () => import('../views/booking/showBooking.vue'),
+        },
     ]
 });
 

@@ -13,4 +13,16 @@ class Schedule extends Model
         'description',
         'status',
     ];
+
+    /**
+     * Accesor to get the start_time in 12 hours format.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getStartTimeAttribute($value)
+    {
+        return date('h:i a ', strtotime($value));
+    }
+
 }

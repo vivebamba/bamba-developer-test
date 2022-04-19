@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h5>Cartelera</h5>
+    <h2 style="text-align: center; color: white;">LARA MOVIE</h2>
+    <h3 style="text-align: center;">Cartelera</h3>
     <v-card style="max-width: 50vw; margin: auto; margin-top: 30vh;">
         <v-toolbar
             flat
@@ -24,7 +25,7 @@
                     <v-chip
                     v-for="(tag, index) in auditorium.schedules"
                     :key="index"
-                    @click="goToBookingRoute(auditorium.id, auditorium.name, tag.start_time)"
+                    @click="goToBookingRoute(auditorium.id, auditorium.name, tag.start_time, tag.id)"
                     >
                     {{ tag.start_time }}
                     </v-chip>
@@ -55,31 +56,31 @@ export default {
         this.getAuditoriums();
     },
     methods: {
+        /**
+         * Get auditoriums with yours attributes.
+         */
         getAuditoriums(){
             this.loading = true;
 
             axios.get('/api/auditoriums')
                 .then(res => {
-                    console.log(res.data);
                     this.auditoriums= res.data.auditoriums;
                 }).catch(er => {
                     console.warn(er.response);
                 }).then(() => this.loading = false);
         },
-        goToBookingRoute(idAuditorium, nameAuditorium, showMovie){
+        /**
+         * Go to route booking.
+         */
+        goToBookingRoute(idAuditorium, nameAuditorium, scheduleName, scheduleId){
             if (idAuditorium && nameAuditorium) {
                 let dataUrl =  {
                     ...{name: 'booking'},
-                    ...{params: { idAuditorium: idAuditorium, nameAuditorium: nameAuditorium, showMovie:showMovie }},
+                    ...{params: { idAuditorium: idAuditorium, nameAuditorium: nameAuditorium, scheduleName:scheduleName, scheduleId:scheduleId }},
                 }
 
                 this.$router.push(dataUrl);
             }
-            console.log('goToBookingRoute');
-            // this.$router.push({
-            //             name: 'booking',
-            //         });
-            
         }
     },
     computed: {

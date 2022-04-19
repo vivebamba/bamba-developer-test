@@ -54,6 +54,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {},
   data: function data() {
@@ -80,12 +81,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.getAuditoriums();
   },
   methods: {
+    /**
+     * Get auditoriums with yours attributes.
+     */
     getAuditoriums: function getAuditoriums() {
       var _this = this;
 
       this.loading = true;
       axios.get('/api/auditoriums').then(function (res) {
-        console.log(res.data);
         _this.auditoriums = res.data.auditoriums;
       })["catch"](function (er) {
         console.warn(er.response);
@@ -93,7 +96,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return _this.loading = false;
       });
     },
-    goToBookingRoute: function goToBookingRoute(idAuditorium, nameAuditorium, showMovie) {
+
+    /**
+     * Go to route booking.
+     */
+    goToBookingRoute: function goToBookingRoute(idAuditorium, nameAuditorium, scheduleName, scheduleId) {
       if (idAuditorium && nameAuditorium) {
         var dataUrl = _objectSpread(_objectSpread({}, {
           name: 'booking'
@@ -101,16 +108,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           params: {
             idAuditorium: idAuditorium,
             nameAuditorium: nameAuditorium,
-            showMovie: showMovie
+            scheduleName: scheduleName,
+            scheduleId: scheduleId
           }
         });
 
         this.$router.push(dataUrl);
       }
-
-      console.log('goToBookingRoute'); // this.$router.push({
-      //             name: 'booking',
-      //         });
     }
   },
   computed: {}
@@ -205,7 +209,13 @@ var render = function () {
   return _c(
     "div",
     [
-      _c("h5", [_vm._v("Cartelera")]),
+      _c("h2", { staticStyle: { "text-align": "center", color: "white" } }, [
+        _vm._v("LARA MOVIE"),
+      ]),
+      _vm._v(" "),
+      _c("h3", { staticStyle: { "text-align": "center" } }, [
+        _vm._v("Cartelera"),
+      ]),
       _vm._v(" "),
       _c(
         "v-card",
@@ -277,7 +287,8 @@ var render = function () {
                                 return _vm.goToBookingRoute(
                                   auditorium.id,
                                   auditorium.name,
-                                  tag.start_time
+                                  tag.start_time,
+                                  tag.id
                                 )
                               },
                             },

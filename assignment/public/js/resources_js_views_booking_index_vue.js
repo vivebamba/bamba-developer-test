@@ -11,6 +11,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -38,20 +58,31 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     idAuditorium: Number,
     nameAuditorium: String,
-    showMovie: String
+    scheduleName: String,
+    scheduleId: Number
   },
   data: function data() {
     return {
       loading: false,
       seats: [],
       activeClass: 'selectedColor',
-      seatClass: 'seatColor'
+      seatClass: 'seatColor',
+      seatsSelected: [],
+      bookerEmail: '',
+      email: '',
+      alert: false,
+      messageAlert: '',
+      typeAlert: 'error',
+      token_id: ''
     };
   },
   mounted: function mounted() {
     this.getAuditorium();
   },
   methods: {
+    /**
+     * Get auditoriums with yours seats and schedules.
+     */
     getAuditorium: function getAuditorium() {
       var _this = this;
 
@@ -66,11 +97,98 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
-    goToBookingRoute: function goToBookingRoute() {
-      console.log('goToBookingRoute');
-      this.$router.push({
-        name: 'booking'
-      });
+
+    /**
+     * Save new Booking.
+     */
+    saveBooking: function saveBooking() {
+      var _this2 = this;
+
+      if (this.validations()) {
+        var data = {
+          auditorium_id: this.idAuditorium,
+          seats_ids: this.seatsSelected,
+          schedule_id: this.scheduleId,
+          email: this.email
+        };
+        axios.post('/api/save-booking', data).then(function (res) {
+          _this2.token_id = res.data.token_id;
+          _this2.alert = true;
+          _this2.messageAlert = 'Boletos agendados';
+          _this2.typeAlert = 'success';
+          setTimeout(function () {
+            _this2.goToShowBooking();
+          }, 600);
+        })["catch"](this.handleError);
+      }
+    },
+
+    /**
+     * Change status and color of scuare seats.
+     */
+    changeStatus: function changeStatus(indexArr) {
+      this.seats[indexArr].status = !this.seats[indexArr].status;
+    },
+
+    /**
+     * Add Ids of seats selected.
+     */
+    addSeatToArray: function addSeatToArray(indexArr) {
+      this.changeStatus(indexArr);
+
+      if (!this.seatsSelected.includes(this.seats[indexArr].id) && !this.seats[indexArr].status) {
+        this.seatsSelected.push(this.seats[indexArr].id);
+      }
+
+      if (this.seatsSelected.includes(this.seats[indexArr].id) && this.seats[indexArr].status) {
+        var indexInSelected = this.seatsSelected.indexOf(this.seats[indexArr].id);
+        this.seatsSelected.splice(indexInSelected, 1);
+      }
+    },
+
+    /**
+     * Validate that fiels requireds.
+     */
+    validations: function validations() {
+      var isComplete = true;
+      this.alert = false;
+
+      if (!this.email && this.seatsSelected.length < 1) {
+        this.messageAlert = 'Seleciona un asiento y agrega un correo electrónico';
+        this.alert = true;
+        isComplete = false;
+      } else {
+        if (this.seatsSelected.length < 1) {
+          this.messageAlert = 'Seleciona un asiento';
+          this.alert = true;
+          isComplete = false;
+        }
+
+        if (!this.email) {
+          this.messageAlert = 'Incresa un correo electrónico';
+          this.alert = true;
+          isComplete = false;
+        }
+      }
+
+      return isComplete;
+    },
+
+    /**
+     * Goto detail booking.
+     */
+    goToShowBooking: function goToShowBooking() {
+      if (this.token_id) {
+        var dataUrl = _objectSpread(_objectSpread({}, {
+          name: 'booking-detail'
+        }), {
+          params: {
+            token_id: this.token_id
+          }
+        });
+
+        this.$router.push(dataUrl);
+      }
     }
   },
   computed: {}
@@ -94,7 +212,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.selectedColor{\r\n  background-color: #3F51B5;\n}\n.seatColor{\r\n  background-color: gray;\n}\n.selectedColor:hover{\r\n  cursor: pointer;\n}\n.seatColor:hover{\r\n  cursor: pointer;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.selectedColor{\r\n  background-color: #3F51B5;\n}\n.seatColor{\r\n  background-color: darkgray;\n}\n.selectedColor:hover{\r\n  cursor: pointer;\n}\n.seatColor:hover{\r\n  cursor: pointer;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -235,9 +353,35 @@ var render = function () {
         display: "flex",
         "flex-direction": "column",
         height: "90vh",
+        "justify-content": "center",
+        "text-align": "center",
       },
     },
     [
+      _c(
+        "v-alert",
+        {
+          staticStyle: {
+            margin: "auto",
+            "text-align": "center",
+            "margin-top": "20px",
+          },
+          attrs: {
+            border: "bottom",
+            "colored-border": "",
+            type: _vm.typeAlert,
+          },
+          model: {
+            value: _vm.alert,
+            callback: function ($$v) {
+              _vm.alert = $$v
+            },
+            expression: "alert",
+          },
+        },
+        [_vm._v(_vm._s(_vm.messageAlert))]
+      ),
+      _vm._v(" "),
       _vm.nameAuditorium
         ? _c(
             "h3",
@@ -246,11 +390,11 @@ var render = function () {
           )
         : _vm._e(),
       _vm._v(" "),
-      _vm.showMovie
+      _vm.scheduleName
         ? _c(
             "h5",
             { staticStyle: { "text-align": "center", "margin-top": "20px" } },
-            [_vm._v(_vm._s(_vm.showMovie))]
+            [_vm._v(_vm._s(_vm.scheduleName))]
           )
         : _vm._e(),
       _vm._v(" "),
@@ -293,7 +437,7 @@ var render = function () {
                   staticStyle: { height: "100%", width: "100%" },
                   on: {
                     click: function ($event) {
-                      seat.status = !seat.status
+                      return _vm.addSeatToArray(index)
                     },
                   },
                 },
@@ -317,16 +461,35 @@ var render = function () {
             "max-width": "200px",
             display: "flex",
             "justify-content": "center",
+            "flex-direction": "column",
           },
         },
         [
           _c("v-text-field", {
             attrs: { label: "Correo", outlined: "", dense: "" },
+            model: {
+              value: _vm.email,
+              callback: function ($$v) {
+                _vm.email = $$v
+              },
+              expression: "email",
+            },
           }),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              staticClass: "mt-5",
+              attrs: { color: "primary", elevation: "2" },
+              on: { click: _vm.saveBooking },
+            },
+            [_vm._v("AGENDAR")]
+          ),
         ],
         1
       ),
-    ]
+    ],
+    1
   )
 }
 var staticRenderFns = [
@@ -348,7 +511,11 @@ var staticRenderFns = [
           "justify-content": "center",
         },
       },
-      [_c("p", { staticStyle: { color: "white" } }, [_vm._v("Pantalla")])]
+      [
+        _c("p", { staticStyle: { color: "white" } }, [
+          _vm._v("P A N T A L L A"),
+        ]),
+      ]
     )
   },
 ]

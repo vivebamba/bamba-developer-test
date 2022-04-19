@@ -2,31 +2,13 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
 use App\Models\Booker;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
 
 class BookerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -45,9 +27,9 @@ class BookerController extends Controller
      * @param  \App\Models\Booker  $booker
      * @return \Illuminate\Http\Response
      */
-    public function show(Booker $booker)
+    public function show()
     {
-        //
+        
     }
 
     /**

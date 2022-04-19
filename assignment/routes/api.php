@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuditoriumController;
+use App\Http\Controllers\API\BookerController;
 use App\Http\Controllers\API\BookingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/auditoriums', [AuditoriumController::class, 'index']);
 Route::get('/show-auditorium/{id}', [AuditoriumController::class, 'show']);
-Route::post('/create-booking', [BookingController::class, 'create']);
+Route::post('/save-booking', [BookingController::class, 'store']);
+Route::get('/show-booking/{token}', [BookingController::class, 'show']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
