@@ -27,7 +27,26 @@ class CinemaSeeder extends Seeder
         $movies = Movie::factory()->count(5)->create();
 
         $auditoriums = Auditorium::factory()->count(2)->hasAttached($firstSeats)->create();
-        $auditoriums->add(Auditorium::factory()->count(1)->hasAttached($seats)->create());
+        $auditoriums->add(Auditorium::factory()->hasAttached($seats)->create());
+
+        foreach ($auditoriums as $auditorium){
+            foreach (self::$days as $dayKey => $day){
+                $movie = $movies->random();
+                foreach (self::$times as $keyTime => $time){
+                    if($keyTime === 3 && $dayKey <= 4){
+                        continue;
+                    }
+
+                    Booking::create([
+                        'day' => $day,
+                        'time' => $time,
+                        'movie_id' => $movie->id,
+                        'auditorium_id' => $auditorium->id
+                    ]);
+                }
+
+            }
+        }
 
     }
 }
