@@ -17,8 +17,8 @@ class CreateBookingsTable extends Migration
             $table->id();
             $table->string('day');
             $table->string('time');
-            $table->foreign('auditorium_id')->references('id')->on('auditoriums');
-            $table->foreign('movie_id')->references('id')->on('movies');
+            $table->foreignId('auditorium_id')->references('id')->on('auditoriums');
+            $table->foreignId('movie_id')->references('id')->on('movies');
             $table->timestamps();
         });
     }

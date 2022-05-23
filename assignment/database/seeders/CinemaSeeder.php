@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Auditorium;
+use App\Models\Booking;
+use App\Models\Movie;
 use App\Models\Seat;
 use Illuminate\Database\Seeder;
 
@@ -21,13 +23,11 @@ class CinemaSeeder extends Seeder
     public function run()
     {
         $seats = Seat::factory()->count(30)->create();
-        $firstSeats = $seats->filter(function ($value){
-            return $value <= 20;
-        });
+        $firstSeats =  $seats->take(20);
+        $movies = Movie::factory()->count(5)->create();
 
         $auditoriums = Auditorium::factory()->count(2)->hasAttached($firstSeats)->create();
         $auditoriums->add(Auditorium::factory()->count(1)->hasAttached($seats)->create());
-
 
     }
 }

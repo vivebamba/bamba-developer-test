@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class MovieFactory extends Factory
 {
@@ -14,7 +16,7 @@ class MovieFactory extends Factory
     public function definition()
     {
         return [
-            'cover' => $this->faker->image('image', null, null, 'nightlife'),
+            'cover' => $this->faker->imageUrl(640, 480, 'nightlife'),
             'name' => $this->faker->sentence('4'),
         ];
     }

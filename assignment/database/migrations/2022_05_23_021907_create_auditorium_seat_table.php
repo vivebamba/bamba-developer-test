@@ -14,9 +14,9 @@ class CreateAuditoriumSeatTable extends Migration
     public function up()
     {
         Schema::create('auditorium_seat', function (Blueprint $table) {
-            $table->foreign('auditorium_id')->references('id')->on('auditoriums')
+            $table->foreignId('auditorium_id')->references('id')->on('auditoriums')
                 ->onDelete('cascade');
-            $table->foreign('seat_id')->references('id')->on('seats')
+            $table->foreignId('seat_id')->references('id')->on('seats')
                 ->onDelete('cascade');
             $table->timestamps();
         });

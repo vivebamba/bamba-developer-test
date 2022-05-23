@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSeatBookerTable extends Migration
+class CreateBookerSeatTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,9 @@ class CreateSeatBookerTable extends Migration
     public function up()
     {
         Schema::create('booker_seat', function (Blueprint $table) {
-            $table->foreign('booker_id')->references('id')->on('bookers')
+            $table->foreignId('booker_id')->references('id')->on('bookers')
                 ->onDelete('cascade');
-            $table->foreign('seat_id')->references('id')->on('seats')
+            $table->foreignId('seat_id')->references('id')->on('seats')
                 ->onDelete('cascade');
             $table->timestamps();
         });
