@@ -30,13 +30,23 @@ class CinemaSeeder extends Seeder
         $auditoriums = Auditorium::factory()->count(2)->hasAttached($firstSeats)->create();
         $auditoriums->add(Auditorium::factory()->hasAttached($seats)->create());
 
+        $this->createBookings($auditoriums, $movies);
 
+    }
+
+    /**
+     * @param $auditoriums
+     * @param $movies
+     * @return void
+     */
+    private function createBookings($auditoriums, $movies)
+    {
         foreach (self::$days as $dayKey => $day) {
             $moviesUsed = [];
             foreach ($auditoriums as $auditorium) {
-                if(empty($moviesUsed)){
+                if (empty($moviesUsed)) {
                     $movie = $movies->random();
-                }else{
+                } else {
                     $movie = $movies->whereNotIn('id', $moviesUsed)->random();
                 }
                 $moviesUsed[] = $movie->id;
@@ -56,6 +66,5 @@ class CinemaSeeder extends Seeder
 
             }
         }
-
     }
 }
