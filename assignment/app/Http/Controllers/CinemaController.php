@@ -2,31 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use App\Interfaces\BookingInterface;
-use App\Interfaces\MovieInterface;
 use App\Repositories\BookingRepository;
-use Illuminate\Http\Request;
+use App\Repositories\MovieRepository;
+use App\Repositories\SeatRepository;
 
 class CinemaController extends Controller
 {
     /**
-     * @var MovieInterface $movieRepository
+     * @var MovieRepository $movieRepository
      */
     private $movieRepository;
 
     /**
-     * @var BookingInterface $bookingRepository
+     * @var BookingRepository $bookingRepository
      */
     private $bookingRepository;
 
     /**
-     * @param MovieInterface $movieRepository
-     * @param BookingInterface $bookingRepository
+     * @var SeatRepository $seatRepository
      */
-    public function __construct(MovieInterface $movieRepository, BookingInterface $bookingRepository)
+    private $seatRepository;
+
+    /**
+     * @param MovieRepository $movieRepository
+     * @param BookingRepository $bookingRepository
+     */
+    public function __construct(MovieRepository $movieRepository, BookingRepository $bookingRepository,
+                                SeatRepository  $seatRepository)
     {
         $this->movieRepository = $movieRepository;
         $this->bookingRepository = $bookingRepository;
+        $this->seatRepository = $seatRepository;
     }
 
     /**
@@ -46,11 +52,16 @@ class CinemaController extends Controller
     public function showTimesOfMovie($slugMovie)
     {
         if (empty($data['movie'] = $this->movieRepository->getBySlug($slugMovie))) {
-            return abort(404);
+            abort(404);
         }
 
         $data['times'] = $this->bookingRepository->getBookingByMovie($slugMovie)->groupBy('day');
 
         return view('movie', $data);
+    }
+
+    public function showSeatsOfMovieBooking($booking)
+    {
+
     }
 }

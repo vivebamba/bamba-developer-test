@@ -6,10 +6,12 @@ use App\Interfaces\AuditoriumInterface;
 use App\Interfaces\Baseinterface;
 use App\Interfaces\BookingInterface;
 use App\Interfaces\MovieInterface;
+use App\Interfaces\SeatInterface;
 use App\Repositories\AuditoriumRepository;
 use App\Repositories\BaseRepository;
 use App\Repositories\BookingRepository;
 use App\Repositories\MovieRepository;
+use App\Repositories\SeatRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -25,6 +27,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(AuditoriumInterface::class, AuditoriumRepository::class);
         $this->app->bind(MovieInterface::class, MovieRepository::class);
         $this->app->bind(BookingInterface::class, BookingRepository::class);
+        $this->app->bind(SeatInterface::class, SeatRepository::class);
     }
 
     /**
