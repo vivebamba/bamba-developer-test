@@ -6,6 +6,7 @@ use App\Models\Auditorium;
 use App\Models\Booking;
 use App\Models\Movie;
 use App\Models\Seat;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Seeder;
 
 class CinemaSeeder extends Seeder
@@ -23,17 +24,25 @@ class CinemaSeeder extends Seeder
     public function run()
     {
         $seats = Seat::factory()->count(30)->create();
-        $firstSeats =  $seats->take(20);
-        $movies = Movie::factory()->count(5)->create();
+        $firstSeats = $seats->take(20);
+        $movies = Movie::factory()->count(6)->create();
 
         $auditoriums = Auditorium::factory()->count(2)->hasAttached($firstSeats)->create();
         $auditoriums->add(Auditorium::factory()->hasAttached($seats)->create());
 
-        foreach ($auditoriums as $auditorium){
-            foreach (self::$days as $dayKey => $day){
-                $movie = $movies->random();
-                foreach (self::$times as $keyTime => $time){
-                    if($keyTime === 3 && $dayKey <= 4){
+
+        foreach (self::$days as $dayKey => $day) {
+            $moviesUsed = [];
+            foreach ($auditoriums as $auditorium) {
+                if(empty($moviesUsed)){
+                    $movie = $movies->random();
+                }else{
+                    $movie = $movies->whereNotIn('id', $moviesUsed)->random();
+                }
+                $moviesUsed[] = $movie->id;
+
+                foreach (self::$times as $keyTime => $time) {
+                    if ($keyTime === 3 && $dayKey <= 4) {
                         continue;
                     }
 
