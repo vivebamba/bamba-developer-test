@@ -15,4 +15,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(\App\Http\Controllers\CinemaController::class)->group(function () {
     Route::get('/', 'index')->name('home');
+    Route::get('/{slug}', 'showTimesOfMovie')->name('movie.time');
 });

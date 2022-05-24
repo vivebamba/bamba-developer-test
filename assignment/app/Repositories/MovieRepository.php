@@ -12,4 +12,14 @@ class MovieRepository extends BaseRepository implements MovieInterface
         parent::__construct($model);
     }
 
+    public function getAllHasBookings()
+    {
+        return $this->model->has('bookings')->get();
+    }
+
+    public function getBySlug($slug)
+    {
+        return $this->model->where('slug', $slug)->first();
+    }
+
 }
