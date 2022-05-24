@@ -16,7 +16,6 @@ class BookingRepository extends BaseRepository implements BookingInterface
         parent::__construct($model);
     }
 
-
     /**
      * @param $slugMovie
      * @return mixed
