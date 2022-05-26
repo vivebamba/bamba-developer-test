@@ -60,8 +60,16 @@ class CinemaController extends Controller
         return view('movie', $data);
     }
 
-    public function showSeatsOfMovieBooking($booking)
+    /**
+     * @param $slugMovie
+     * @param $booking
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function scheduleMovieBooking($slugMovie, $booking)
     {
+        $data['booking'] = $this->bookingRepository->getById($booking);
+        $data['seats'] = $this->seatRepository->getSeatsByBooking($booking);
 
+        return view('schedule', $data);
     }
 }

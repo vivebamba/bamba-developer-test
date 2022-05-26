@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CinemaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::controller(\App\Http\Controllers\CinemaController::class)->group(function () {
+Route::controller(CinemaController::class)->group(function () {
     Route::get('/', 'index')->name('home');
-    Route::get('/{slug}', 'showTimesOfMovie')->name('movie.time');
+    Route::name('movie.')->group(function () {
+        Route::get('/{slug}', 'showTimesOfMovie')->name('time');
+        Route::get('/{slug}/{booking}', 'scheduleMovieBooking')->name('schedule');
+    });
 });

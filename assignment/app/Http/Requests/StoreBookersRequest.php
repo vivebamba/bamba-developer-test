@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
 
 class StoreBookersRequest extends FormRequest
 {
@@ -24,7 +25,9 @@ class StoreBookersRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'email' => 'required|email|max:100',
+            'name' => 'required|alpha|string',
+            'seat' => 'required|exists:seats'
         ];
     }
 }

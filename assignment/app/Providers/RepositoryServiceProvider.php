@@ -4,11 +4,13 @@ namespace App\Providers;
 
 use App\Interfaces\AuditoriumInterface;
 use App\Interfaces\Baseinterface;
+use App\Interfaces\BookerInterface;
 use App\Interfaces\BookingInterface;
 use App\Interfaces\MovieInterface;
 use App\Interfaces\SeatInterface;
 use App\Repositories\AuditoriumRepository;
 use App\Repositories\BaseRepository;
+use App\Repositories\BookerRepository;
 use App\Repositories\BookingRepository;
 use App\Repositories\MovieRepository;
 use App\Repositories\SeatRepository;
@@ -28,6 +30,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(MovieInterface::class, MovieRepository::class);
         $this->app->bind(BookingInterface::class, BookingRepository::class);
         $this->app->bind(SeatInterface::class, SeatRepository::class);
+        $this->app->bind(BookerInterface::class, BookerRepository::class);
     }
 
     /**
