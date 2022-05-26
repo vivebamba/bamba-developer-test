@@ -11,5 +11,10 @@ interface BookerInterface
      */
     public function checkSeatIsAvailable($seat, $booking);
 
-    public function create(array $data);
+    /**
+     * @param array $data
+     * @param $seat
+     * @return mixed
+     */
+    public function createWithSeat(array $data, $seat);
 }

@@ -25,16 +25,23 @@ class BookerController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \App\Http\Requests\StoreBookersRequest $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreBookersRequest $request, $booking)
     {
-        if(!$this->bookerRepository->checkSeatIsAvailable($request->seat, $booking)){
-            echo 'hola';
+        if (!$this->bookerRepository->checkSeatIsAvailable($request->seat, $booking)) {
+            return back()->with('seat_occupied', 'El asiento esta ocupado ya');
         }
 
+        $createData = [
+            'email' => $request->email,
+            'name' => $request->name,
+            'booking_id' => $booking,
+        ];
 
+       $booker = $this->bookerRepository->createWithSeat($createData, $request->seat);
 
+       dd($booker);
     }
 
 

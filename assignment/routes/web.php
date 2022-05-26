@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookerController;
 use App\Http\Controllers\CinemaController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +21,8 @@ Route::controller(CinemaController::class)->group(function () {
         Route::get('/{slug}', 'showTimesOfMovie')->name('time');
         Route::get('/{slug}/{booking}', 'scheduleMovieBooking')->name('schedule');
     });
+});
+
+Route::controller(BookerController::class)->group(function () {
+    Route::post('schedule-booking/{booking}', 'store')->name('booker.store');
 });

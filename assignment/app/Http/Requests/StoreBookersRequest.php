@@ -27,7 +27,7 @@ class StoreBookersRequest extends FormRequest
         return [
             'email' => 'required|email|max:100',
             'name' => 'required|alpha|string',
-            'seat' => 'required|exists:seats'
+            'seat' => 'required|exists:seats,id'
         ];
     }
 }

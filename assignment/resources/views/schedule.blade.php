@@ -8,8 +8,9 @@
         <div class="col-md-6">
             <h1 class="fw-bold">{{$booking->movie->name}}</h1>
         </div>
-        <div class="col-12">
-            <form class="row g-3">
+        <div class="col-12 my-3">
+            <form class="row g-3" action="{{route('booker.store', $booking->id)}}" method="POST">
+                @csrf
                 <div class="col-6">
                     <div class="form-floating">
                         <input type="text" readonly class="form-control" id="day" name="day" value="{{$booking->day}}">
@@ -37,11 +38,9 @@
                 </div>
                 <div class="col-6">
                     <div class="form-floating">
-                        <select class="form-select @error('seat') is-invalid @enderror" id="seat"
+                        <select name="seat" class="form-select @error('seat') is-invalid @enderror" id="seat"
                                 aria-label="Selecciona asiento">
                             @foreach($seats as $seat)
-                                <option value="{{$seat->id}}">{{$seat->number}}</option>
-                                <option value="{{$seat->id}}">{{$seat->number}}</option>
                                 <option value="{{$seat->id}}">{{$seat->number}}</option>
                             @endforeach
                         </select>

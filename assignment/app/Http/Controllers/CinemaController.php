@@ -26,6 +26,7 @@ class CinemaController extends Controller
     /**
      * @param MovieRepository $movieRepository
      * @param BookingRepository $bookingRepository
+     * @param SeatRepository $seatRepository
      */
     public function __construct(MovieRepository $movieRepository, BookingRepository $bookingRepository,
                                 SeatRepository  $seatRepository)

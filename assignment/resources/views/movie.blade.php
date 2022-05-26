@@ -26,7 +26,8 @@
                              data-bs-parent="#accordionTimes">
                             <div class="accordion-body">
                                 @foreach($bookings as $booking)
-                                    <a class="btn btn-primary rounded-pill px-4 me-3" href="#"
+                                    <a class="btn btn-primary rounded-pill px-4 me-3"
+                                       href="{{route('movie.schedule', ['slug' => $movie->slug, 'booking' => $booking->id])}}"
                                        role="button">{{$booking->time}}</a>
                                 @endforeach
                             </div>

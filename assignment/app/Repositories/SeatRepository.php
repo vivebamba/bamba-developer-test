@@ -22,8 +22,9 @@ class SeatRepository extends BaseRepository implements SeatInterface
      */
     public function getSeatsByBooking($booking)
     {
-        return $this->model->whereHas('auditorium', function (Builder $query) use ($booking) {
-            $query->bookings()->where('id', $booking);
+
+        return $this->model->whereHas('auditoriums', function (Builder $query) use ($booking) {
+            $query->whereRelation('bookings','id', $booking);
         })->whereDoesntHave('bookers', function (Builder $query) use ($booking) {
             $query->where('booking_id', $booking);
         })->get();
