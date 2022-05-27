@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', $movie->name)
+
 @section('main')
     <div class="row shadow p-3 g-4 bg-light">
         <div class="col-md-6 ">

@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', $movie->name)
+
 @section('main')
     <div class="row">
         <div class="col-md-6 ">
