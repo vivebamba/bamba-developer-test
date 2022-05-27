@@ -24,5 +24,8 @@ Route::controller(CinemaController::class)->group(function () {
 });
 
 Route::controller(BookerController::class)->group(function () {
-    Route::post('schedule-booking/{booking}', 'store')->name('booker.store');
+    Route::name('booker.')->group(function () {
+        Route::post('schedule-booking/{booking}', 'store')->name('store');
+        Route::post('success/{booker}', 'success')->name('success');
+    });
 });

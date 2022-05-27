@@ -40,15 +40,24 @@ class BookerController extends Controller
                 'booking_id' => $booking,
             ];
 
-            $data['booker'] = $this->bookerRepository->createWithSeat($createData, $request->seat);
+            $booker = $this->bookerRepository->createWithSeat($createData, $request->seat);
 
-            return view('success', $data);
+            return redirect()->route('booker.success', $booker);
 
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             abort(500);
         }
+    }
 
+    public function success($booker)
+    {
+        $data['booker'] = $this->bookerRepository->getById($booker);
+        if (empty($data['booker'])) {
+            abort(404);
+        }
+
+        return view('success', $data);
     }
 
 

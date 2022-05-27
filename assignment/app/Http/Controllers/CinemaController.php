@@ -69,7 +69,9 @@ class CinemaController extends Controller
      */
     public function scheduleMovieBooking($slugMovie, $booking)
     {
-        if (empty($data['booking'] = $this->bookingRepository->getById($booking))) {
+        $data['booking'] = $this->bookingRepository->getById($booking);
+
+        if (empty($data['booking'])) {
             abort(404);
         }
 
