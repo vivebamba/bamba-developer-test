@@ -10,7 +10,7 @@
         </div>
         <div class="col-12">
             <div class="accordion accordion-flush" id="accordionTimes">
-                @foreach($times as $keyTime => $bookings)
+                @forelse($times as $keyTime => $bookings)
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-heading-{{$loop->index}}">
                             <button class="accordion-button @if(!$loop->first) collapsed @endif" type="button"
@@ -22,7 +22,7 @@
                             </button>
                         </h2>
                         <div id="flush-collapse-{{$loop->index}}"
-                             @class(['accordion-collapse', 'collapse','show' => $loop->first]) aria-labelledby="flush-heading-{{$loop->index}}"
+                             @class(['accordion-collapse', 'collapse', 'show' => $loop->first]) aria-labelledby="flush-heading-{{$loop->index}}"
                              data-bs-parent="#accordionTimes">
                             <div class="accordion-body">
                                 @foreach($bookings as $booking)
@@ -33,7 +33,12 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <div class="alert alert-info" role="alert">
+                        <p class="h3">Lo sentimos :(</p>
+                        No hay horarios para esta pelicula
+                    </div>
+                @endforelse
             </div>
         </div>
     </div>

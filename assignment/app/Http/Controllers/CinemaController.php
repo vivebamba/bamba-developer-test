@@ -11,17 +11,17 @@ class CinemaController extends Controller
     /**
      * @var MovieRepository $movieRepository
      */
-    private $movieRepository;
+    private MovieRepository $movieRepository;
 
     /**
      * @var BookingRepository $bookingRepository
      */
-    private $bookingRepository;
+    private BookingRepository $bookingRepository;
 
     /**
      * @var SeatRepository $seatRepository
      */
-    private $seatRepository;
+    private SeatRepository $seatRepository;
 
     /**
      * @param MovieRepository $movieRepository
@@ -56,10 +56,11 @@ class CinemaController extends Controller
             abort(404);
         }
 
-        $data['times'] = $this->bookingRepository->getBookingByMovie($slugMovie)->groupBy('day');
+        $data['times'] = $this->bookingRepository->getBookingByMovieAndGroupByDay($slugMovie);
 
         return view('movie', $data);
     }
+
 
     /**
      * @param $slugMovie
@@ -68,7 +69,10 @@ class CinemaController extends Controller
      */
     public function scheduleMovieBooking($slugMovie, $booking)
     {
-        $data['booking'] = $this->bookingRepository->getById($booking);
+        if (empty($data['booking'] = $this->bookingRepository->getById($booking))) {
+            abort(404);
+        }
+
         $data['seats'] = $this->seatRepository->getSeatsByBooking($booking);
 
         return view('schedule', $data);

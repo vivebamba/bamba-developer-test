@@ -1,2 +1,2 @@
-<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset(mix('js/app.js')) }}" type="application/javascript"></script>
 @stack('scripts')

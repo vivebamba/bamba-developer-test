@@ -20,10 +20,16 @@ class BookingRepository extends BaseRepository implements BookingInterface
      * @param $slugMovie
      * @return mixed
      */
-    public function getBookingByMovie($slugMovie)
+    public function getBookingByMovieAndGroupByDay($slugMovie)
     {
-       return $this->model->whereHas('movie', function (Builder $query) use ($slugMovie){
+        $times = $this->model->whereHas('movie', function (Builder $query) use ($slugMovie) {
             $query->where('slug', $slugMovie);
         })->get();
+
+        if ($times->isNotEmpty()) {
+            $times = $times->groupBy('day');
+        }
+
+        return $times;
     }
 }

@@ -8,6 +8,6 @@ interface BookingInterface
      * @param $movie
      * @return mixed
      */
-    public function getBookingByMovie($movie);
+    public function getBookingByMovieAndGroupByDay($movie);
 
 }

@@ -9,6 +9,16 @@
             <h1 class="fw-bold">{{$booking->movie->name}}</h1>
         </div>
         <div class="col-12 my-3">
+            @if (session('seat_occupied'))
+                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+                        <use xlink:href="#exclamation-triangle-fill"/>
+                    </svg>
+                    <div>
+                        {{ session('seat_occupied') }}
+                    </div>
+                </div>
+            @endif
             <form class="row g-3" action="{{route('booker.store', $booking->id)}}" method="POST">
                 @csrf
                 <div class="col-6">
