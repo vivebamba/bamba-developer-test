@@ -13,48 +13,60 @@
                 @csrf
                 <div class="col-6">
                     <div class="form-floating">
-                        <input type="text" readonly class="form-control" id="day" name="day" value="{{$booking->day}}">
+                        <input type="text" readonly class="form-control form-control-plaintext" id="day"
+                               name="day" value="{{$booking->day}}">
                         <label for="day">Dia</label>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="form-floating">
-                        <input type="text" readonly class="form-control" id="time" name="time"
-                               value="{{$booking->time}}">
+                        <input type="text" readonly class="form-control form-control-plaintext"
+                               id="time" name="time" value="{{$booking->time}}">
                         <label for="time">Hora</label>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-floating">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="name@example.com">
+                        <input type="text" class="form-control form-control-sm @error('name') is-invalid @enderror"
+                               id="name" name="name" placeholder="name@example.com">
                         <label for="name">Nombre</label>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="form-floating">
-                        <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
-                        <label for="email">Correo Electronico</label>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="form-floating">
-                        <select name="seat" class="form-select @error('seat') is-invalid @enderror" id="seat"
-                                aria-label="Selecciona asiento">
-                            @foreach($seats as $seat)
-                                <option value="{{$seat->id}}">{{$seat->number}}</option>
-                            @endforeach
-                        </select>
-                        <label for="seat">Seleccion asiento</label>
-                        @error('seat')
+                        @error('name')
                         <div class="invalid-feedback">
-                           No existe ese asiento
+                            {{ $message }}
                         </div>
                         @enderror
                     </div>
                 </div>
-
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Sign in</button>
+                <div class="col-6">
+                    <div class="form-floating">
+                        <input type="email" class="form-control form-control-sm @error('email') is-invalid @enderror"
+                               id="email" name="email" placeholder="name@example.com">
+                        <label for="email">Correo Electronico</label>
+                        @error('email')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-floating">
+                        <select name="seat" class="form-select form-select-sm @error('seat') is-invalid @enderror"
+                                id="seat" aria-label="Selecciona asiento">
+                            @foreach($seats as $seat)
+                                <option value="{{$seat->id}}">{{$seat->number}}</option>
+                            @endforeach
+                        </select>
+                        <label for="seat">Selecciona asiento</label>
+                        @error('seat')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-12 d-grid gap-2 mx-auto">
+                    <button type="submit" class="btn btn-secondary rounded-pill text-white">Agendar</button>
                 </div>
             </form>
         </div>
