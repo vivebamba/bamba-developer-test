@@ -51,7 +51,7 @@
                 </div>
                 <div class="col-6">
                     <div class="form-floating">
-                        <select name="seat" class="form-select form-select-sm @error('seat') is-invalid @enderror"
+                        <select name="seat" class="form-select @error('seat') is-invalid @enderror"
                                 id="seat" aria-label="Selecciona asiento">
                             @foreach($seats as $seat)
                                 <option value="{{$seat->id}}">{{$seat->number}}</option>
