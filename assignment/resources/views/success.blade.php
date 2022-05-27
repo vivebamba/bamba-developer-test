@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', $movie->name)
+@section('title', 'reserva satisfactoria')
 
 @section('main')
     <div class="row justify-content-center">
