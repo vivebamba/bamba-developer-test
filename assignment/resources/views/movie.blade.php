@@ -11,6 +11,16 @@
             <h1 class="fw-bold">{{$movie->name}}</h1>
         </div>
         <div class="col-12">
+            @if (session('auditorium_full'))
+                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+                        <use xlink:href="#exclamation-triangle-fill"/>
+                    </svg>
+                    <div>
+                        {{ session('auditorium_full') }}
+                    </div>
+                </div>
+            @endif
             <div class="accordion accordion-flush" id="accordionTimes">
                 @forelse($times as $keyTime => $bookings)
                     <div class="accordion-item">
