@@ -32,4 +32,6 @@ class BookingRepository extends BaseRepository implements BookingInterface
 
         return $times;
     }
+
+
 }

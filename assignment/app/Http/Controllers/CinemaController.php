@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\BookerRepository;
 use App\Repositories\BookingRepository;
 use App\Repositories\MovieRepository;
 use App\Repositories\SeatRepository;
@@ -24,16 +25,22 @@ class CinemaController extends Controller
     private SeatRepository $seatRepository;
 
     /**
+     * @var BookerRepository $bookerRepository
+     */
+    private BookerRepository $bookerRepository;
+
+    /**
      * @param MovieRepository $movieRepository
      * @param BookingRepository $bookingRepository
      * @param SeatRepository $seatRepository
      */
     public function __construct(MovieRepository $movieRepository, BookingRepository $bookingRepository,
-                                SeatRepository  $seatRepository)
+                                SeatRepository  $seatRepository, BookerRepository $bookerRepository)
     {
         $this->movieRepository = $movieRepository;
         $this->bookingRepository = $bookingRepository;
         $this->seatRepository = $seatRepository;
+        $this->bookerRepository = $bookerRepository;
     }
 
     /**
@@ -65,7 +72,7 @@ class CinemaController extends Controller
     /**
      * @param $slugMovie
      * @param $booking
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
      */
     public function scheduleMovieBooking($slugMovie, $booking)
     {
@@ -75,7 +82,11 @@ class CinemaController extends Controller
             abort(404);
         }
 
-        $data['seats'] = $this->seatRepository->getSeatsByBooking($booking);
+        if ($this->bookerRepository->getBookersByBooking($booking)->count() === $this->seatRepository->getSeatsByBooking($booking)->count()) {
+            return back()->with('auditorium_full', 'La sala con el horario de ' . $data['booking']->day . ' a las '. $data['booking']->time .' ya esta llena');
+        }
+
+        $data['seats'] = $this->seatRepository->getAvailableSeatsByBooking($booking);
 
         return view('schedule', $data);
     }

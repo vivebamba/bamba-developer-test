@@ -36,4 +36,9 @@ class BookerRepository extends BaseRepository implements BookerInterface
         $booker->seats()->attach($seat);
         return $booker;
     }
+
+    public function getBookersByBooking($booking)
+    {
+        return $this->model->where('booking_id', $booking)->get();
+    }
 }

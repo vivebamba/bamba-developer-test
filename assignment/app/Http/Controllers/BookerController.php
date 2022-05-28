@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBookersRequest;
 use App\Repositories\BookerRepository;
+use App\Repositories\BookingRepository;
+use App\Repositories\SeatRepository;
 use Illuminate\Support\Facades\Log;
 
 class BookerController extends Controller
@@ -12,6 +14,7 @@ class BookerController extends Controller
      * @var BookerRepository $bookerRepository
      */
     private BookerRepository $bookerRepository;
+
 
     /**
      * @param BookerRepository $bookerRepository

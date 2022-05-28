@@ -20,13 +20,20 @@ class SeatRepository extends BaseRepository implements SeatInterface
      * @param $booking
      * @return mixed|void
      */
-    public function getSeatsByBooking($booking)
+    public function getAvailableSeatsByBooking($booking)
     {
 
         return $this->model->whereHas('auditoriums', function (Builder $query) use ($booking) {
             $query->whereRelation('bookings','id', $booking);
         })->whereDoesntHave('bookers', function (Builder $query) use ($booking) {
             $query->where('booking_id', $booking);
+        })->get();
+    }
+
+    public function getSeatsByBooking($booking)
+    {
+        return $this->model->whereHas('auditoriums', function (Builder $query) use ($booking) {
+            $query->whereRelation('bookings','id', $booking);
         })->get();
     }
 }
