@@ -18,14 +18,14 @@ use Illuminate\Support\Facades\Route;
 Route::controller(CinemaController::class)->group(function () {
     Route::get('/', 'index')->name('home');
     Route::name('movie.')->group(function () {
-        Route::get('/{slug}', 'showTimesOfMovie')->name('time');
-        Route::get('/{slug}/{booking}', 'scheduleMovieBooking')->name('schedule');
+        Route::get('movie/{slug}', 'showTimesOfMovie')->name('time');
+        Route::get('movie/{slug}/{booking}', 'scheduleMovieBooking')->name('schedule');
     });
 });
 
 Route::controller(BookerController::class)->group(function () {
     Route::name('booker.')->group(function () {
         Route::post('schedule-booking/{booking}', 'store')->name('store');
-        Route::post('success/{booker}', 'success')->name('success');
+        Route::get('success/{booker}', 'success')->name('success');
     });
 });

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Seat extends Model
 {
@@ -23,10 +24,10 @@ class Seat extends Model
     }
 
     /**
-     * @return BelongsToMany
+     * @return hasMany
      */
-    public function bookers(): BelongsToMany
+    public function bookers(): hasMany
     {
-        return $this->belongsToMany(Booker::class)->withTimestamps();
+        return $this->hasMany(Booker::class);
     }
 }

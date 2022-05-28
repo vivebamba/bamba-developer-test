@@ -11,27 +11,31 @@
                     <p class="card-text text-center fs-5 fw-bold">Haz agendado tu pelicula</p>
                     <div class="row g-3">
                         <div class="col-12">
-                            <p class="fw-bold fs-6">Pelicula</p>
+                            <p class="fw-bold fs-6 mb-0">Codigo</p>
+                            <p>{{$booker->id}}</p>
+                        </div>
+                        <div class="col-12">
+                            <p class="fw-bold fs-6 mb-0">Pelicula</p>
                             <p>{{$booker->booking->movie->name}}</p>
                         </div>
                         <div class="col-md-6">
-                            <p class="fw-bold fs-6">Sala</p>
+                            <p class="fw-bold fs-6 mb-0">Sala</p>
                             <p>{{$booker->booking->auditorium->name}}</p>
                         </div>
                         <div class="col-md-6">
-                            <p class="fw-bold fs-6">Asiento</p>
-                            <p>{{$booker->seats->number}}</p>
+                            <p class="fw-bold fs-6 mb-0">Asiento</p>
+                            <p>{{$booker->seat->number}}</p>
                         </div>
                         <div class="col-md-6">
-                            <p class="fw-bold fs-6">Dia</p>
+                            <p class="fw-bold fs-6 mb-0">Dia</p>
                             <p>{{$booker->booking->day}}</p>
                         </div>
                         <div class="col-md-6">
-                            <p class="fw-bold fs-6">Hora</p>
+                            <p class="fw-bold fs-6 mb-0">Hora</p>
                             <p>{{$booker->booking->time}}</p>
                         </div>
-                        <div class="col-12">
-                            <a href="{{route('home')}}" class="btn btn-secondary text-white" type="button">
+                        <div class="col-12 d-grid gap-2">
+                            <a href="{{route('home')}}" class="btn btn-secondary rounded-pill text-white" type="button">
                                 Regresar a inicio
                             </a>
                         </div>

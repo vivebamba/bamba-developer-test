@@ -17,7 +17,7 @@
                         <use xlink:href="#exclamation-triangle-fill"/>
                     </svg>
                     <div>
-                        {{ session('auditorium_full ') }}
+                        {{ session('auditorium_full') }}
                     </div>
                 </div>
             @endif

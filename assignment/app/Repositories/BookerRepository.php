@@ -23,18 +23,16 @@ class BookerRepository extends BaseRepository implements BookerInterface
      */
     public function checkSeatIsAvailable($seat, $booking)
     {
-        return $this->model->whereRelation('seats', 'id', $seat)->where('booking_id', $booking)->get()->isEmpty();
+        return $this->model->where([['booking_id', $booking], ['seat_id', $seat]])->get()->isEmpty();
     }
 
     /**
      * @param array $data
      * @return mixed|void
      */
-    public function createWithSeat(array $data, $seat)
+    public function create(array $data)
     {
-        $booker = $this->model->create($data);
-        $booker->seats()->attach($seat);
-        return $booker;
+        return $this->model->create($data);
     }
 
     public function getBookersByBooking($booking)

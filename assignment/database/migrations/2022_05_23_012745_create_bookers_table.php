@@ -18,6 +18,7 @@ class CreateBookersTable extends Migration
             $table->string('name', 100);
             $table->string('email', 100);
             $table->foreignId('booking_id')->references('id')->on('bookings');
+            $table->foreignId('seat_id')->references('id')->on('seats');
             $table->timestamps();
         });
     }

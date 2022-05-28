@@ -12,15 +12,15 @@ class Booker extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'email', 'booking_id'
+        'name', 'email', 'booking_id', 'seat_id'
     ];
 
     /**
-     * @return BelongsToMany
+     * @return belongsTo
      */
-    public function seats(): BelongsToMany
+    public function seat(): belongsTo
     {
-        return $this->belongsToMany(Seat::class)->withTimestamps();
+        return $this->belongsTo(Seat::class);
     }
 
     /**

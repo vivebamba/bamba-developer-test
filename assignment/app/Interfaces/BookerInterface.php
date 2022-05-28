@@ -13,8 +13,13 @@ interface BookerInterface
 
     /**
      * @param array $data
-     * @param $seat
      * @return mixed
      */
-    public function createWithSeat(array $data, $seat);
+    public function create(array $data);
+
+    /**
+     * @param $booking
+     * @return mixed
+     */
+    public function getBookersByBooking($booking);
 }

@@ -41,11 +41,12 @@ class BookerController extends Controller
                 'email' => $request->email,
                 'name' => $request->name,
                 'booking_id' => $booking,
+                'seat_id' => $request->seat
             ];
 
-            $booker = $this->bookerRepository->createWithSeat($createData, $request->seat);
+            $booker = $this->bookerRepository->create($createData);
 
-            return redirect()->route('booker.success', $booker);
+            return redirect()->route('booker.success', $booker->id);
 
         } catch (\Exception $e) {
             Log::error($e->getMessage());
