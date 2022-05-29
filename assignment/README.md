@@ -6,7 +6,7 @@ This application is example of a cinema
 
 ### Environment
 
-1. PHP >= 7.2.5
+1. PHP >= 7.3
 
 ## Steps to deploy
 
