@@ -28,7 +28,7 @@ class BookerTest extends TestCase
     }
 
     /**
-     * A basic unit test example.
+     * Test a schedule booking.
      *
      * @return void
      */
@@ -49,6 +49,11 @@ class BookerTest extends TestCase
         $response->assertRedirectContains('success');
     }
 
+    /**
+     * Test schedule the same booking
+     *
+     * @return void
+     */
     public function test_schedule_same_booking()
     {
         $booking = $this->bookingRepository->getAll()->random();
@@ -70,6 +75,11 @@ class BookerTest extends TestCase
         $response->assertSessionHas('seat_occupied');
     }
 
+    /**
+     * Test limit of auditorium
+     *
+     * @return void
+     */
     public function test_limit_auditorium()
     {
         $booking = $this->bookingRepository->getAll()->random();
